@@ -39,18 +39,8 @@ There are many tutorials online to help you learn how to create a Discord Applic
 - Copy your token and paste it into the aforementioned Auth.data file located inside the Discord Bot folder.
 
 6. Now click the OAuth2 tab and check the BOT scope.
-   Under bot permissions -> text permissions, check the following:
-- View Channels
-- Kick members
-- Ban Members
-- Send Messages
-- Add Reactions
-- Use External Emojis
-- Use External Stickers
-- Read Message History
-- Mute Members
-
-Copy and paste the URL that gets generated into a web browser and hit enter.
+   Under bot permissions -> general permissions, check **Administrator**.
+   Copy and paste the URL that gets generated into a web browser and hit enter.
 
 7. You will be prompted to add the bot to a Discord server, select one, click continue and authorize.
 

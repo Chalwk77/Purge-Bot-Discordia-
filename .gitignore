@@ -1,4 +1,5 @@
 .idea
+.run
 Auth.data
 discordia.log
 gateway.json

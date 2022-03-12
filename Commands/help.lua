@@ -21,11 +21,11 @@
 
 return {
 
-    name = 'help',
-    alias = 'helpme',
+    name = 'purgehelp',
+    alias = 'purgehelpme',
+    description = 'Show command descriptions',
     help = 'Syntax: $cmd',
     roles = { '508481976714657792' },
-    description = 'Command descriptions',
 
     permission = function(roles, member)
         for _, v in pairs(roles) do
@@ -37,13 +37,10 @@ return {
     end,
 
     run = function(_, msg, _, _, Commands)
-        local member = msg.member
-        local t = {}
+        local help = ""
         for _, v in pairs(Commands) do
-            if (type(v) == 'table') then
-                t[#t + 1] = 'Command: ' .. v.command .. '\n' .. 'Description: ' .. v.description .. 'Syntax: ' .. v.help
-            end
+            help = help .. 'Command: ' .. v.name .. '\nDescription: ' .. v.description .. '\nSyntax: ' .. v.prefix .. v.help:gsub('$cmd', v.name) .. '\n\n'
         end
-        member:send(table.unpack(t))
+        msg.member:send(help)
     end
 }

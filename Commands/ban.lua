@@ -24,9 +24,9 @@ return {
     name = 'ban',
     alias = 'banuser',
     reason = "Undefined",
+    description = 'Ban a user',
     help = 'Syntax: $cmd (user) (reason [optional])',
     roles = { '508481976714657792' },
-    description = 'Ban a user',
 
     permission = function(roles, member)
         for _, v in pairs(roles) do

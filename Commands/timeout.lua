@@ -24,7 +24,7 @@ return {
     name = 'timeout',
     alias = 'timeoutuser',
     reason = "Undefined",
-    help = 'Syntax: $cmd (user) (duration) (reason [optional])',
+    help = 'Syntax: $prefix$cmd (user) (duration) (reason [optional])',
     roles = { '508481976714657792' },
     description = 'Timeout a user',
 

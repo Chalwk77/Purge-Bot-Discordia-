@@ -56,6 +56,7 @@ return {
             return
         end
 
+        user = user:gsub('[<@!>]', '')
         flag = (flag:match '-y'
                 or flag:match '-d'
                 or flag:match '-hr'
@@ -83,8 +84,8 @@ return {
         local messages_found
         for MessageID, _ in pairs(messages) do
             local message = channel:getMessage(MessageID)
-            user = user:gsub('[<@!>]', '')
-            if (message.author.id == user and not message.author.bot and creation_time(message) < tonumber(time_frame)) then
+            local validated = (message.author.id == user and not message.author.bot)
+            if (validated and creation_time(message) < tonumber(time_frame)) then
                 messages_found = message:delete()
             end
         end

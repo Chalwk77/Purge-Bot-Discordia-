@@ -54,6 +54,8 @@ Discord:on('ready', function()
             help = command.help,
             alias = command.alias,
             roles = command.roles,
+            reason = command.reason,
+            duration = command.duration,
             permission = command.permission,
             description = command.description
         }

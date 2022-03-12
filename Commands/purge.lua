@@ -28,6 +28,7 @@ return {
     roles = { '508481976714657792' },
     description = 'Purge user messages in defined time frame',
     help = 'Syntax: $cmd (user) (time n) [-y, -d, -hr, -min, -sec]',
+
     permission = function(roles, member)
         for _, v in pairs(roles) do
             if (member:hasRole(v)) then
@@ -40,7 +41,6 @@ return {
     run = function(args, msg, Discord, Command)
 
         local member = msg.member
-
         if (not Command.permission(Command.roles, member, msg)) then
             member:send('**Insufficient Permission**')
             msg:delete()

@@ -21,7 +21,7 @@
 return {
     prefix = "!",
     discord_server_id = '508458848559038465',
-    commands = { 'purge', 'help' },
+    commands = { 'purge', 'help', 'kick', 'ban'},
     token = function()
         local token = ''
         local file = io.open('./Auth.data')

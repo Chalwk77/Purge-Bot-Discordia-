@@ -1,1 +1,1 @@
-luvit main
+luvit main.lua

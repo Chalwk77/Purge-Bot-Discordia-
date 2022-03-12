@@ -36,7 +36,7 @@ return {
         return false
     end,
 
-    run = function(args, msg, Discord, Command, Commands)
+    run = function(_, msg, Command, Commands)
 
         local member = msg.member
         if (not Command.permission(Command.roles, member, msg)) then

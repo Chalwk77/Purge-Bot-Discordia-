@@ -41,7 +41,7 @@ return {
         return true
     end,
 
-    run = function(args, msg, _, Command)
+    run = function(args, msg, Command)
 
         local user = args[2]
         local member = msg.member

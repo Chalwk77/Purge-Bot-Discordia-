@@ -30,7 +30,7 @@ local function RunCommand(msg, args)
 
     local cmd = commands[args[1]]
     if (cmd) then
-        cmd.run(args, msg, Discord, cmd, commands)
+        cmd.run(args, msg, cmd, commands)
     end
 end
 
@@ -49,6 +49,7 @@ Discord:on('ready', function()
             local command = require('./Commands/' .. file)
             commands[command.name] = {
                 server = server,
+                client = Discord,
                 run = command.run,
                 name = command.name,
                 help = command.help,

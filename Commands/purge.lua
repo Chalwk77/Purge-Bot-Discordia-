@@ -38,7 +38,7 @@ return {
         return false
     end,
 
-    run = function(args, msg, Discord, Command)
+    run = function(args, msg, Command)
 
         local member = msg.member
         local user, time_frame, flag = args[2], args[3], args[4]
@@ -82,7 +82,7 @@ return {
             return
         end
 
-        local channel = Discord:getChannel(msg.channel.id)
+        local channel = Command.client:getChannel(msg.channel.id)
         local messages = channel:getMessages()
 
         local messages_found

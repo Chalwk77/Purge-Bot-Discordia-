@@ -18,8 +18,7 @@
     along with Purge Bot. If not, see <http://www.gnu.org/licenses/>.
 ]]
 
-local time = os.time
-local creation_time = require('Utilities.GetMessageTimeStamp')
+local get_creation_time = require('Utilities.GetMessageTimeStamp')
 
 return {
 
@@ -64,15 +63,15 @@ return {
                 or flag:match '-sec')
 
         if (flag == '-y') then
-            time_frame = time() - time_frame / (60 * 60 * 24 * 365)
+            math.floor(time_frame / (60 * 60 * 24 * 365))
         elseif (flag == '-d') then
-            time_frame = time_frame / (60 * 60 * 24)
+            math.floor(time_frame / (60 * 60 * 24))
         elseif (flag == '-hr') then
-            time_frame = time() - (time_frame * 60)
+            math.floor(time_frame / (60 * 60))
         elseif (flag == '-min') then
-            time_frame = time() - 60
+            math.floor(time_frame / 60)
         elseif (flag == '-sec') then
-            time_frame = time() - time_frame
+            time_frame = time_frame
         else
             member:send('Invalid flag.\n' .. Command.help)
             return
@@ -85,7 +84,7 @@ return {
         for MessageID, _ in pairs(messages) do
             local message = channel:getMessage(MessageID)
             local validated = (message.author.id == user and not message.author.bot)
-            if (validated and creation_time(message) < tonumber(time_frame)) then
+            if (validated and get_creation_time(message) <= time_frame) then
                 messages_found = message:delete()
             end
         end

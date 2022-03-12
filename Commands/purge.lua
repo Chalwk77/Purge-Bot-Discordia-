@@ -64,11 +64,10 @@ return {
                 or flag:match '-sec')
 
         if (flag == '-y') then
-            -- todo
-        elseif (flag == '-m') then
-            -- todo
+            time_frame = time() - time_frame / (60 * 60 * 24 * 365)
+        --elseif (flag == '-m') then
         elseif (flag == '-d') then
-            -- todo
+            time_frame = time_frame / (60 * 60 * 24)
         elseif (flag == '-hr') then
             time_frame = time() - (time_frame * 60)
         elseif (flag == '-min') then

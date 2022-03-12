@@ -1,4 +1,6 @@
 auth.data
+discordia.log
+gateway.json
 
 # Compiled Lua sources
 luac.out

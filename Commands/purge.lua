@@ -18,6 +18,7 @@
     along with Purge Bot. If not, see <http://www.gnu.org/licenses/>.
 ]]
 
+local floor = math.floor
 local get_creation_time = require('Utilities.GetMessageTimeStamp')
 
 return {
@@ -63,13 +64,13 @@ return {
                 or flag:match '-sec')
 
         if (flag == '-y') then
-            math.floor(time_frame / (60 * 60 * 24 * 365))
+            time_frame = floor(time_frame / (60 * 60 * 24 * 365))
         elseif (flag == '-d') then
-            math.floor(time_frame / (60 * 60 * 24))
+            time_frame = floor(time_frame / (60 * 60 * 24))
         elseif (flag == '-hr') then
-            math.floor(time_frame / (60 * 60))
+            time_frame = floor(time_frame / (60 * 60))
         elseif (flag == '-min') then
-            math.floor(time_frame / 60)
+            time_frame = floor(time_frame / 60)
         elseif (flag == '-sec') then
             time_frame = time_frame
         else

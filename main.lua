@@ -24,16 +24,6 @@ local Discord = Discordia.Client()
 
 local commands = {}
 
-local function RunCommand(msg, args)
-    local prefix = args[1]:sub(1, settings.prefix:len())
-    args[1] = args[1]:gsub(prefix, '')
-
-    local cmd = commands[args[1]]
-    if (cmd) then
-        cmd.run(args, msg, cmd, commands)
-    end
-end
-
 local function CMDSplit(Str)
     local args = { }
     for arg in Str:gmatch("([^%s]+)") do
@@ -93,7 +83,11 @@ Discord:on('messageCreate', function(msg)
         end
 
         local success, err = pcall(function()
-            RunCommand(msg, args)
+            args[1] = args[1]:gsub(settings.prefix, '')
+            local cmd = commands[args[1]]
+            if (cmd) then
+                cmd.run(args, msg, cmd, commands)
+            end
         end)
 
         if (not success) then

@@ -41,6 +41,7 @@ return {
     run = function(args, msg, Discord, Command)
 
         local member = msg.member
+        local user, time_frame, flag = args[2], args[3], args[4]
         if (not Command.permission(Command.roles, member, msg)) then
             msg:delete()
             member:reply {
@@ -51,10 +52,7 @@ return {
                 }
             }
             return
-        end
-
-        local user, time_frame, flag = args[2], args[3], args[4]
-        if (not user or not time_frame or not flag) then
+        elseif (not user or not time_frame or not flag) then
             member:send('Invalid user, timeframe or flag\n' .. Command.help:gsub('$cmd', Command.name))
             return
         elseif (not time_frame:match('%d+')) then

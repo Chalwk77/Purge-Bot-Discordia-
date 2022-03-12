@@ -43,15 +43,13 @@ return {
 
     run = function(args, msg, _, Command)
 
-        local member = msg.member
-        if (not Command.permission(member, msg)) then
-            return
-        end
-
         local user = args[2]
+        local member = msg.member
         local reason = args[3] or Command.reason
 
-        if (not user or not reason) then
+        if (not Command.permission(member, msg)) then
+            return
+        elseif (not user or not reason) then
             member:send('Invalid user or reason\n' .. Command.help:gsub('$cmd', Command.name))
             return
         end

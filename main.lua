@@ -77,12 +77,7 @@ Discord:on('messageCreate', function(msg)
 
     local args = CMDSplit(msg.content)
     if (#args > 0) then
-
-        local perms = member:getPermissions(msg.channel)
-        for k,v in pairs(perms) do
-            print(perms)
-        end
-
+        
         if (args[1]:sub(1, 1) ~= settings.prefix) then
             return false
         end

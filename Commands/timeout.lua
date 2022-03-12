@@ -28,12 +28,12 @@ return {
     description = 'Timeout a user',
 
     permission = function(member, msg)
-        if (not member:hasPermission('timeoutMembers')) then
+        if (not member:hasPermission('moderateMembers')) then
             msg:delete()
             member:reply {
                 embed = {
                     title = 'Perms Error',
-                    description = 'You need "timeoutMembers" perm to use this command.',
+                    description = 'You need "moderateMembers" perm to use this command.',
                     color = 0x000000
                 }
             }
@@ -44,20 +44,18 @@ return {
 
     run = function(args, msg, _, Command)
 
-        local member = msg.member
-        if (not Command.permission(member, msg)) then
-            return
-        end
-
         local user = args[2]
+        local member = msg.member
         local duration = args[3] or Command.duration
         local reason = args[4] or Command.reason
-        if (not duration:match('%d+')) then
-            member:send('Invalid duration\n' .. Command.help:gsub('$cmd', Command.name))
-        end
 
-        if (not user or not reason or not duration) then
+        if (not Command.permission(member, msg)) then
+            return
+        elseif (not user or not reason or not duration) then
             member:send('Invalid user, reason or duration\n' .. Command.help:gsub('$cmd', Command.name))
+            return
+        elseif (not duration:match('%d+')) then
+            member:send('Invalid duration\n' .. Command.help:gsub('$cmd', Command.name))
             return
         end
 

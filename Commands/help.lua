@@ -39,7 +39,9 @@ return {
     run = function(_, msg, _, _, Commands)
         local help = ""
         for _, v in pairs(Commands) do
-            help = help .. 'Command: ' .. v.name .. '\nDescription: ' .. v.description .. '\n' .. v.help:gsub('$cmd', v.name):gsub('$prefix', v.prefix) .. '\n\n'
+            help = help .. 'Command: ' .. v.name ..
+                    '\nDescription: ' .. v.description ..
+                    '\n' .. v.help:gsub('$cmd', v.name):gsub('$prefix', v.prefix) .. '\n\n'
         end
         msg.member:send(help)
     end

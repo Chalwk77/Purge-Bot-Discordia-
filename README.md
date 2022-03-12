@@ -9,18 +9,22 @@
    - **!purge (user) (time n) [-y, -d, -hr, -min, -sec]**
    - Required Permissions: **manageMembers**
 > Purge messages within a defined time frame.
+
 - Timeout:
     - **!timeout (user) (duration) (reason [optional])**
     - Required Permissions: **manageMembers**
 > Timeout a user.
+
 - Kick:
      - **!kick (user) (reason [optional])**
      - Required Permissions: **kickMembers**
 > Kick a user
+
 - Ban:
      - **!ban (user) (reason [optional])**
      - Required Permissions: **banMembers**
 > Ban a user
+
 - Help:
      - **!purgehelp**
      - Required Permissions: **manageMembers**

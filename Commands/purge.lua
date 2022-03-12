@@ -19,7 +19,7 @@
 ]]
 
 local floor = math.floor
-local get_creation_time = require('Utilities.GetMessageTimeStamp')
+local get_creation_time = require('Utilities.GetMessageTime')
 
 return {
 

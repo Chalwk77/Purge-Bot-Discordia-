@@ -1,4 +1,4 @@
--- Purge Bot GetMessageTimeStamp file (v1.0)
+-- Purge Bot GetMessageTime file (v1.0)
 -- Copyright (c) 2022, Jericho Crosby <jericho.crosby227@gmail.com>
 
 --[[

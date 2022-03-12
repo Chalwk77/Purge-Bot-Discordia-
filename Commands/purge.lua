@@ -42,8 +42,14 @@ return {
 
         local member = msg.member
         if (not Command.permission(Command.roles, member, msg)) then
-            member:send('**Insufficient Permission**')
             msg:delete()
+            member:reply {
+                embed = {
+                    title = 'Perms Error',
+                    description = 'You do not have permission to execute that command.',
+                    color = 0x000000
+                }
+            }
             return
         end
 

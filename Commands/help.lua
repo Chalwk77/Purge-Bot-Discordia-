@@ -36,7 +36,21 @@ return {
         return false
     end,
 
-    run = function(_, msg, _, _, Commands)
+    run = function(args, msg, Discord, Command, Commands)
+
+        local member = msg.member
+        if (not Command.permission(Command.roles, member, msg)) then
+            msg:delete()
+            member:reply {
+                embed = {
+                    title = 'Perms Error',
+                    description = 'You do not have permission to execute that command.',
+                    color = 0x000000
+                }
+            }
+            return
+        end
+
         local help = ""
         for _, v in pairs(Commands) do
             help = help .. 'Command: ' .. v.name ..

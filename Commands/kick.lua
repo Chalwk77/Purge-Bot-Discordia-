@@ -24,24 +24,27 @@ return {
     alias = 'kickuser',
     reason = "Undefined",
     help = 'Syntax: $prefix$cmd (user) (reason [optional])',
-    roles = { '508481976714657792' },
     description = 'Kick a user',
 
-    permission = function(roles, member)
-        for _, v in pairs(roles) do
-            if (member:hasRole(v)) then
-                return true
-            end
+    permission = function(member, msg)
+        if (not member:hasPermission('kickMembers')) then
+            msg:delete()
+            member:reply {
+                embed = {
+                    title = 'Perms Error',
+                    description = 'You need "kickMembers" perm to use this command.',
+                    color = 0x000000
+                }
+            }
+            return false
         end
-        return false
+        return true
     end,
 
     run = function(args, msg, _, Command)
 
         local member = msg.member
-        if (not Command.permission(Command.roles, member, msg)) then
-            member:send('**Insufficient Permission**')
-            msg:delete()
+        if (not Command.permission(member, msg)) then
             return
         end
 

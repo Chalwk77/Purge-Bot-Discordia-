@@ -46,8 +46,9 @@ local function CMDSplit(Str)
 end
 
 Discord:on('ready', function()
-    local server = Discord:getGuild(settings.discord_server_id)
+    server = Discord:getGuild(settings.discord_server_id)
     if (server) then
+
         for _, file in pairs(settings.commands) do
             local command = require('./Commands/' .. file)
             commands[#commands + 1] = {
@@ -76,6 +77,11 @@ Discord:on('messageCreate', function(msg)
 
     local args = CMDSplit(msg.content)
     if (#args > 0) then
+
+        local perms = member:getPermissions(msg.channel)
+        for k,v in pairs(perms) do
+            print(perms)
+        end
 
         if (args[1]:sub(1, 1) ~= settings.prefix) then
             return false

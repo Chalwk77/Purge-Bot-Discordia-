@@ -54,11 +54,17 @@ return {
             return
         end
 
-        user = user:gsub('[<@!>]', '')
-        user = Command.server:getMember(user)
-        member:send('Banning <@!' .. user.id .. '>, for ' .. reason)
+        local success = pcall(function()
+            user = user:gsub('[<@!>]', '')
+            user = Command.server:getMember(user)
+        end)
 
-        user:send('<@!' .. user.id .. '>, ' .. reason)
-        user:ban()
+        if (success and user) then
+            member:send('Banning <@!' .. user.id .. '>, for ' .. reason)
+            user:send('<@!' .. user.id .. '>, ' .. reason)
+            user:ban()
+            return
+        end
+        member:send('Invalid User ID')
     end
 }

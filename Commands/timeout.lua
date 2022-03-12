@@ -58,11 +58,17 @@ return {
             return
         end
 
-        user = user:gsub('[<@!>]', '')
-        user = Command.server:getMember(user)
+        local success = pcall(function()
+            user = user:gsub('[<@!>]', '')
+            user = Command.server:getMember(user)
+        end)
 
-        member:send('Kicking <@!' .. user.id .. '>, for ' .. reason)
-        user:send('<@!' .. user.id .. '>, ' .. reason)
-        user:timeoutFor(duration * 60)
+        if (success and user) then
+            member:send('Timing out <@!' .. user.id .. '>, for ' .. reason)
+            user:send('<@!' .. user.id .. '>, ' .. reason)
+            user:timeoutFor(duration * 60)
+            return
+        end
+        member:send('Invalid User ID')
     end
 }

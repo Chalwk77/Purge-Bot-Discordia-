@@ -53,11 +53,17 @@ return {
             return
         end
 
-        user = user:gsub('[<@!>]', '')
-        user = Command.server:getMember(user)
-        member:send('Kicking <@!' .. user.id .. '>, for ' .. reason)
+        local success = pcall(function()
+            user = user:gsub('[<@!>]', '')
+            user = Command.server:getMember(user)
+        end)
 
-        user:send('<@!' .. user.id .. '>, ' .. reason)
-        user:kick()
+        if (success and user) then
+            member:send('Kicking <@!' .. user.id .. '>, for ' .. reason)
+            user:send('<@!' .. user.id .. '>, ' .. reason)
+            user:kick()
+            return
+        end
+        member:send('Invalid User ID')
     end
 }

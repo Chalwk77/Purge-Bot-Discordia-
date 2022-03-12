@@ -17,6 +17,9 @@
 - Ban:
      - **!ban (user) (reason [optional])**
      - Required Permissions: **banMembers**
+- Help:
+     - **!purgehelp**
+     - Required Permissions: **manageMembers**
    
 # Installation:
 

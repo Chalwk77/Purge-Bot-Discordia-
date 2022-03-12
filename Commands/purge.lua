@@ -1,4 +1,4 @@
--- Purge Bot Command file (v1.0)
+-- Purge Bot Purge Command file (v1.0)
 -- Copyright (c) 2022, Jericho Crosby <jericho.crosby227@gmail.com>
 
 --[[

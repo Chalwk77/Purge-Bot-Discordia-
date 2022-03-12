@@ -35,6 +35,7 @@ end
 Discord:on('ready', function()
     local server = Discord:getGuild(settings.discord_server_id)
     if (server) then
+
         for _, file in pairs(settings.commands) do
             local command = require('./Commands/' .. file)
             commands[command.name] = {
@@ -42,15 +43,16 @@ Discord:on('ready', function()
                 client = Discord,
                 run = command.run,
                 name = command.name,
-                help = command.help,
                 alias = command.alias,
                 reason = command.reason,
                 prefix = settings.prefix,
                 duration = command.duration,
                 permission = command.permission,
-                description = command.description
+                description = command.description,
+                help = command.help:gsub('$prefix', settings.prefix):gsub('$cmd', command.name)
             }
         end
+
         print("====================================================================================")
         print(os.date("%A, %d %B %Y - %X"))
         print("")

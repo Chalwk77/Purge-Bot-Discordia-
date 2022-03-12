@@ -31,7 +31,7 @@ return {
     permission = function(member, msg)
         if (not member:hasPermission('manageMembers')) then
             msg:delete()
-            member:reply {
+            member:send {
                 embed = {
                     title = 'Perms Error',
                     description = 'You need "manageMembers" perm to use this command.',
@@ -50,7 +50,7 @@ return {
         if (not Command.permission(member, msg)) then
             return
         elseif (not user or not time_frame or not flag) then
-            member:send('Invalid user, time frame or flag\n' .. Command.help:gsub('$cmd', Command.name))
+            member:send('Invalid user, time frame or flag.\n' .. Command.help)
             return
         elseif (not time_frame:match('%d+')) then
             member:send('Invalid time frame.')
@@ -75,7 +75,7 @@ return {
         elseif (flag == '-sec') then
             time_frame = time() - time_frame
         else
-            member:send('Invalid flag.\n' .. Command.help:gsub('$cmd', Command.name))
+            member:send('Invalid flag.\n' .. Command.help)
             return
         end
 

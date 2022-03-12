@@ -29,7 +29,7 @@ return {
     permission = function(member, msg)
         if (not member:hasPermission('manageMembers')) then
             msg:delete()
-            member:reply {
+            member:send {
                 embed = {
                     title = 'Perms Error',
                     description = 'You need "manageMembers" perm to use this command.',
@@ -50,7 +50,7 @@ return {
         for _, v in pairs(Commands) do
             help = help .. 'Command: ' .. v.name ..
                     '\nDescription: ' .. v.description ..
-                    '\n' .. v.help:gsub('$cmd', v.name):gsub('$prefix', v.prefix) .. '\n\n'
+                    '\n' .. v.help .. '\n\n'
         end
         msg.member:send(help)
     end

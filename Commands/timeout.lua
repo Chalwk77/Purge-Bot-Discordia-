@@ -30,7 +30,7 @@ return {
     permission = function(member, msg)
         if (not member:hasPermission('moderateMembers')) then
             msg:delete()
-            member:reply {
+            member:send {
                 embed = {
                     title = 'Perms Error',
                     description = 'You need "moderateMembers" perm to use this command.',
@@ -52,10 +52,10 @@ return {
         if (not Command.permission(member, msg)) then
             return
         elseif (not user or not reason or not duration) then
-            member:send('Invalid user, reason or duration\n' .. Command.help:gsub('$cmd', Command.name))
+            member:send('Invalid user, reason or duration.\n' .. Command.help)
             return
         elseif (not duration:match('%d+')) then
-            member:send('Invalid duration\n' .. Command.help:gsub('$cmd', Command.name))
+            member:send('Invalid duration.\n' .. Command.help)
             return
         end
 

@@ -29,7 +29,7 @@ return {
     permission = function(member, msg)
         if (not member:hasPermission('kickMembers')) then
             msg:delete()
-            member:reply {
+            member:send {
                 embed = {
                     title = 'Perms Error',
                     description = 'You need "kickMembers" perm to use this command.',
@@ -50,7 +50,7 @@ return {
         if (not Command.permission(member, msg)) then
             return
         elseif (not user or not reason) then
-            member:send('Invalid user or reason\n' .. Command.help:gsub('$cmd', Command.name))
+            member:send('Invalid user or reason.\n' .. Command.help)
             return
         end
 

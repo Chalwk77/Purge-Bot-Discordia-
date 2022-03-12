@@ -25,32 +25,29 @@ return {
 
     name = 'purge',
     alias = 'delete',
-    roles = { '508481976714657792' },
     description = 'Purge user messages in defined time frame',
     help = 'Syntax: $prefix$cmd (user) (time n) [-y, -d, -hr, -min, -sec]',
 
-    permission = function(roles, member)
-        for _, v in pairs(roles) do
-            if (member:hasRole(v)) then
-                return true
-            end
+    permission = function(member, msg)
+        if (not member:hasPermission('manageMembers')) then
+            msg:delete()
+            member:reply {
+                embed = {
+                    title = 'Perms Error',
+                    description = 'You need "manageMembers" perm to use this command.',
+                    color = 0x000000
+                }
+            }
+            return false
         end
-        return false
+        return true
     end,
 
     run = function(args, msg, Command)
 
         local member = msg.member
         local user, time_frame, flag = args[2], args[3], args[4]
-        if (not Command.permission(Command.roles, member, msg)) then
-            msg:delete()
-            member:reply {
-                embed = {
-                    title = 'Perms Error',
-                    description = 'You do not have permission to execute that command.',
-                    color = 0x000000
-                }
-            }
+        if (not Command.permission(member, msg)) then
             return
         elseif (not user or not time_frame or not flag) then
             member:send('Invalid user, timeframe or flag\n' .. Command.help:gsub('$cmd', Command.name))

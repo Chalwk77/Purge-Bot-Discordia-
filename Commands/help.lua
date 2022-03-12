@@ -25,32 +25,27 @@ return {
     alias = 'purgehelpme',
     description = 'Show command descriptions',
     help = 'Syntax: $prefix$cmd',
-    roles = { '508481976714657792' },
 
-    permission = function(roles, member)
-        for _, v in pairs(roles) do
-            if (member:hasRole(v)) then
-                return true
-            end
-        end
-        return false
-    end,
-
-    run = function(_, msg, Command, Commands)
-
-        local member = msg.member
-        if (not Command.permission(Command.roles, member, msg)) then
+    permission = function(member, msg)
+        if (not member:hasPermission('manageMembers')) then
             msg:delete()
             member:reply {
                 embed = {
                     title = 'Perms Error',
-                    description = 'You do not have permission to execute that command.',
+                    description = 'You need "manageMembers" perm to use this command.',
                     color = 0x000000
                 }
             }
+            return false
+        end
+        return true
+    end,
+
+    run = function(_, msg, Command, Commands)
+        local member = msg.member
+        if (not Command.permission(member, msg)) then
             return
         end
-
         local help = ""
         for _, v in pairs(Commands) do
             help = help .. 'Command: ' .. v.name ..

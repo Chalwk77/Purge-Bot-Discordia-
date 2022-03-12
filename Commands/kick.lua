@@ -23,7 +23,7 @@ return {
     name = 'kick',
     alias = 'kickuser',
     reason = "Undefined",
-    help = 'Syntax: $cmd (user) (reason [optional])',
+    help = 'Syntax: $prefix$cmd (user) (reason [optional])',
     roles = { '508481976714657792' },
     description = 'Kick a user',
 

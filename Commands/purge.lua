@@ -27,7 +27,7 @@ return {
     alias = 'delete',
     roles = { '508481976714657792' },
     description = 'Purge user messages in defined time frame',
-    help = 'Syntax: $cmd (user) (time n) [-y, -d, -hr, -min, -sec]',
+    help = 'Syntax: $prefix$cmd (user) (time n) [-y, -d, -hr, -min, -sec]',
 
     permission = function(roles, member)
         for _, v in pairs(roles) do

@@ -24,7 +24,7 @@ return {
     name = 'purgehelp',
     alias = 'purgehelpme',
     description = 'Show command descriptions',
-    help = 'Syntax: $cmd',
+    help = 'Syntax: $prefix$cmd',
     roles = { '508481976714657792' },
 
     permission = function(roles, member)
@@ -39,7 +39,7 @@ return {
     run = function(_, msg, _, _, Commands)
         local help = ""
         for _, v in pairs(Commands) do
-            help = help .. 'Command: ' .. v.name .. '\nDescription: ' .. v.description .. '\nSyntax: ' .. v.prefix .. v.help:gsub('$cmd', v.name) .. '\n\n'
+            help = help .. 'Command: ' .. v.name .. '\nDescription: ' .. v.description .. '\n' .. v.help:gsub('$cmd', v.name):gsub('$prefix', v.prefix) .. '\n\n'
         end
         msg.member:send(help)
     end

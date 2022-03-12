@@ -36,10 +36,10 @@ return {
         return false
     end,
 
-    run = function(_, msg, _, _, commands)
+    run = function(_, msg, _, _, Commands)
         local member = msg.member
         local t = {}
-        for _, v in pairs(commands) do
+        for _, v in pairs(Commands) do
             if (type(v) == 'table') then
                 t[#t + 1] = 'Command: ' .. v.command .. '\n' .. 'Description: ' .. v.description .. 'Syntax: ' .. v.help
             end

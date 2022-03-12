@@ -18,7 +18,6 @@
     along with Purge Bot. If not, see <http://www.gnu.org/licenses/>.
 ]]
 
-
 return {
 
     name = 'kick',
@@ -37,7 +36,7 @@ return {
         return false
     end,
 
-    run = function(args, msg, Discord, Command, Commands)
+    run = function(args, msg, _, Command)
 
         local member = msg.member
         if (not Command.permission(Command.roles, member, msg)) then
@@ -54,7 +53,10 @@ return {
             return
         end
 
+        user = user:gsub('[<@!>]', '')
+        user = Command.server:getMember(user)
         member:send('Kicking <@!' .. user.id .. '>, for ' .. reason)
+
         user:send('<@!' .. user.id .. '>, ' .. reason)
         user:kick()
     end

@@ -37,7 +37,7 @@ return {
         return false
     end,
 
-    run = function(args, msg, Discord, Command, Commands)
+    run = function(args, msg, _, Command)
 
         local member = msg.member
         if (not Command.permission(Command.roles, member, msg)) then
@@ -54,7 +54,10 @@ return {
             return
         end
 
+        user = user:gsub('[<@!>]', '')
+        user = Command.server:getMember(user)
         member:send('Banning <@!' .. user.id .. '>, for ' .. reason)
+
         user:send('<@!' .. user.id .. '>, ' .. reason)
         user:ban()
     end

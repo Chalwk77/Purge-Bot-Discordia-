@@ -18,9 +18,9 @@
     along with Purge Bot. If not, see <http://www.gnu.org/licenses/>.
 ]]
 
-
 return {
 
+    duration = 60,
     name = 'timeout',
     alias = 'timeoutuser',
     reason = "Undefined",
@@ -37,7 +37,7 @@ return {
         return false
     end,
 
-    run = function(args, msg, Discord, Command, Commands)
+    run = function(args, msg, _, Command)
 
         local member = msg.member
         if (not Command.permission(Command.roles, member, msg)) then
@@ -57,6 +57,9 @@ return {
             member:send('Invalid user, reason or duration\n' .. Command.help:gsub('$cmd', Command.name))
             return
         end
+
+        user = user:gsub('[<@!>]', '')
+        user = Command.server:getMember(user)
 
         member:send('Kicking <@!' .. user.id .. '>, for ' .. reason)
         user:send('<@!' .. user.id .. '>, ' .. reason)

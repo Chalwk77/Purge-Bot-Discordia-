@@ -50,7 +50,7 @@ return {
         if (not Command.permission(member, msg)) then
             return
         elseif (not user or not time_frame or not flag) then
-            member:send('Invalid user, timeframe or flag\n' .. Command.help:gsub('$cmd', Command.name))
+            member:send('Invalid user, time frame or flag\n' .. Command.help:gsub('$cmd', Command.name))
             return
         elseif (not time_frame:match('%d+')) then
             member:send('Invalid time frame.')

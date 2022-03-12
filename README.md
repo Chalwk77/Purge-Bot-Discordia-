@@ -5,35 +5,13 @@
 
 #### Commands:
 
-- Purge:
-   - **!purge (user) (time n) [-y, -d, -hr, -min, -sec]**
-   - Required Permissions: **manageMembers**
-> Purge messages within a defined time frame.
-<br/>
-
-<br/><br/>
-- Timeout:
-    - **!timeout (user) (duration) (reason [optional])**
-    - Required Permissions: **manageMembers**
-> Timeout a user.
-
-<br/><br/>
-- Kick:
-     - **!kick (user) (reason [optional])**
-     - Required Permissions: **kickMembers**
-> Kick a user
-
-<br/><br/>
-- Ban:
-     - **!ban (user) (reason [optional])**
-     - Required Permissions: **banMembers**
-> Ban a user
-
-<br/><br/>
-- Help:
-     - **!purgehelp**
-     - Required Permissions: **manageMembers**
-> Show command descriptions and syntax
+Command | Description
+------------ | ------------
+**!purge (user) (time n) [-y, -d, -hr, -min, -sec]** | Purge messages within defined time frame.<br/>Required Permissions: **manageMembers**
+**!timeout (user) (duration) (reason [optional])** | Timeout a user.<br/>Required Permissions: **manageMembers**
+**!kick (user) (reason [optional])** | Kick a user<br/>Required Permissions: **kickMembers**
+**!ban (user) (reason [optional])** | Ban a user<br/>Required Permissions: **banMembers**
+**!purgehelp** | Show command descriptions and syntax<br/.Required Permissions: **manageMembers**
    
 # Installation:
 

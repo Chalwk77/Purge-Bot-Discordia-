@@ -22,7 +22,6 @@
 return {
 
     name = 'ban',
-    alias = 'banuser',
     reason = 'Undefined',
     description = 'Ban a user',
     help = 'Syntax: $prefix$cmd (user) (reason [optional])',

@@ -21,7 +21,6 @@
 return {
 
     name = 'kick',
-    alias = 'kickuser',
     reason = 'Undefined',
     help = 'Syntax: $prefix$cmd (user) (reason [optional])',
     description = 'Kick a user',

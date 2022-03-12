@@ -22,7 +22,6 @@
 return {
 
     name = 'purgehelp',
-    alias = 'purgehelpme',
     description = 'Show command descriptions',
     help = 'Syntax: $prefix$cmd',
 

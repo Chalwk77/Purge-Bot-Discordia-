@@ -22,7 +22,6 @@ return {
 
     duration = 60,
     name = 'timeout',
-    alias = 'timeoutuser',
     reason = 'Undefined',
     help = 'Syntax: $prefix$cmd (user) (duration) (reason [optional])',
     description = 'Timeout a user',

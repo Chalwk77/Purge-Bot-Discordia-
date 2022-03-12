@@ -24,7 +24,6 @@ local creation_time = require('Utilities.GetMessageTimeStamp')
 return {
 
     name = 'purge',
-    alias = 'delete',
     description = 'Purge user messages in defined time frame',
     help = 'Syntax: $prefix$cmd (user) (time n) [-y, -d, -hr, -min, -sec]',
 

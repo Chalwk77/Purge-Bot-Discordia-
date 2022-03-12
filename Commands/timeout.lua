@@ -23,7 +23,7 @@ return {
     duration = 60,
     name = 'timeout',
     alias = 'timeoutuser',
-    reason = "Undefined",
+    reason = 'Undefined',
     help = 'Syntax: $prefix$cmd (user) (duration) (reason [optional])',
     description = 'Timeout a user',
 
@@ -66,7 +66,7 @@ return {
 
         if (success and user) then
             member:send('Timing out <@!' .. user.id .. '>, for ' .. reason)
-            user:send('<@!' .. user.id .. '>, ' .. reason)
+            user:send('You were timed out for ' .. reason)
             user:timeoutFor(duration * 60)
             return
         end

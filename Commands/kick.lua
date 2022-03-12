@@ -22,7 +22,7 @@ return {
 
     name = 'kick',
     alias = 'kickuser',
-    reason = "Undefined",
+    reason = 'Undefined',
     help = 'Syntax: $prefix$cmd (user) (reason [optional])',
     description = 'Kick a user',
 
@@ -61,7 +61,7 @@ return {
 
         if (success and user) then
             member:send('Kicking <@!' .. user.id .. '>, for ' .. reason)
-            user:send('<@!' .. user.id .. '>, ' .. reason)
+            user:send('You were kicked for ' .. reason)
             user:kick()
             return
         end

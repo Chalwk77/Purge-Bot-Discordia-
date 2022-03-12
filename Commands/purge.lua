@@ -19,7 +19,7 @@
 ]]
 
 local time = os.time
-local creation_time = require("Utilities.GetMessageTimeStamp")
+local creation_time = require('Utilities.GetMessageTimeStamp')
 
 return {
 

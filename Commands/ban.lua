@@ -23,9 +23,10 @@ return {
 
     name = 'ban',
     alias = 'banuser',
-    reason = "Undefined",
+    reason = 'Undefined',
     description = 'Ban a user',
     help = 'Syntax: $prefix$cmd (user) (reason [optional])',
+
     permission = function(member, msg)
         if (not member:hasPermission('banMembers')) then
             msg:delete()
@@ -61,7 +62,7 @@ return {
 
         if (success and user) then
             member:send('Banning <@!' .. user.id .. '>, for ' .. reason)
-            user:send('<@!' .. user.id .. '>, ' .. reason)
+            user:send('You were banned for ' .. reason)
             user:ban()
             return
         end

@@ -81,19 +81,22 @@ return {
         local channel = Command.client:getChannel(msg.channel.id)
         local messages = channel:getMessages()
 
+        local say = true
         local messages_found
         for MessageID, _ in pairs(messages) do
             local message = channel:getMessage(MessageID)
             local validated = (message.author.id == user and not message.author.bot)
             if (validated and get_creation_time(message) <= time_frame) then
                 messages_found = message:delete()
+                if (say) then
+                    say = false
+                    member:send('Deleting messages for <@!' .. user .. '>')
+                end
             end
         end
 
         if (not messages_found) then
             member:send('No messages for <@!' .. user .. '> found in that time frame')
-        else
-            member:send('Deleting messages for <@!' .. user .. '>')
         end
 
         msg:delete()

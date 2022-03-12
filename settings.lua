@@ -20,6 +20,7 @@
 
 return {
     prefix = "!",
+    bot_version = 1.0,
     discord_server_id = '508458848559038465',
     commands = { 'purge', 'kick', 'ban', 'help' },
     token = function()

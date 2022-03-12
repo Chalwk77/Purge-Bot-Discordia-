@@ -64,6 +64,8 @@ Discord:on('ready', function()
                 description = command.description
             }
         end
+        --Discord:info("Ready: " .. Discord.user.tag)
+        Discord:info("Logged in as " .. Discord.user.username .. "\tBot Version: " .. settings.bot_version)
     end
 end)
 
@@ -76,7 +78,7 @@ Discord:on('messageCreate', function(msg)
 
     local args = CMDSplit(msg.content)
     if (#args > 0) then
-        
+
         if (args[1]:sub(1, 1) ~= settings.prefix) then
             return false
         end

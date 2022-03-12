@@ -46,9 +46,8 @@ local function CMDSplit(Str)
 end
 
 Discord:on('ready', function()
-    server = Discord:getGuild(settings.discord_server_id)
+    local server = Discord:getGuild(settings.discord_server_id)
     if (server) then
-
         for _, file in pairs(settings.commands) do
             local command = require('./Commands/' .. file)
             commands[#commands + 1] = {

@@ -36,7 +36,7 @@ return {
     alias = 'delete',
     roles = { '508481976714657792' },
     description = 'Purge user messages in defined time frame',
-    help = 'Syntax: $cmd (user) (time n) [-y, -m, -d, -hr, -min, -sec]',
+    help = 'Syntax: $cmd (user) (time n) [-y, -d, -hr, -min, -sec]',
 
     run = function(args, msg, Discord, Command)
 
@@ -54,10 +54,10 @@ return {
             return
         elseif (not time_frame:match('%d+')) then
             member:send('Invalid time frame.')
+            return
         end
 
         flag = (flag:match '-y'
-                or flag:match '-m'
                 or flag:match '-d'
                 or flag:match '-hr'
                 or flag:match '-min'
@@ -65,7 +65,6 @@ return {
 
         if (flag == '-y') then
             time_frame = time() - time_frame / (60 * 60 * 24 * 365)
-        --elseif (flag == '-m') then
         elseif (flag == '-d') then
             time_frame = time_frame / (60 * 60 * 24)
         elseif (flag == '-hr') then
@@ -76,6 +75,7 @@ return {
             time_frame = time() - time_frame
         else
             member:send('Invalid flag.\n' .. Command.help:gsub('$cmd', Command.name))
+            return
         end
 
         local channel = Discord:getChannel(msg.channel.id)

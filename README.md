@@ -9,9 +9,9 @@ Command | Description
 ------------ | ------------
 **!purge (user) (time n) [-y, -d, -hr, -min, -sec]** | Purge messages within defined time frame.<br/>Required Permission: **manageMembers**
 **!timeout (user) (duration) (reason [optional])** | Timeout a user.<br/>Required Permission: **manageMembers**
-**!kick (user) (reason [optional])** | Kick a user<br/>Required Permission: **kickMembers**
-**!ban (user) (reason [optional])** | Ban a user<br/>Required Permission: **banMembers**
-**!purgehelp** | Show command descriptions and syntax<br/>Required Permission: **manageMembers**
+**!kick (user) (reason [optional])** | Kick a user.<br/>Required Permission: **kickMembers**
+**!ban (user) (reason [optional])** | Ban a user.<br/>Required Permission: **banMembers**
+**!purgehelp** | Show command descriptions and syntax.<br/>Required Permission: **manageMembers**
 
 # Installation:
 

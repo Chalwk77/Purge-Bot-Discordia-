@@ -25,15 +25,12 @@ local Discord = Discordia.Client()
 local commands = {}
 
 local function RunCommand(msg, args)
-
     local prefix = args[1]:sub(1, settings.prefix:len())
     args[1] = args[1]:gsub(prefix, '')
 
-    for _, v in pairs(commands) do
-        if (v.name:lower() == args[1] or v.alias:lower() == args[1]) then
-            v.run(args, msg, Discord, v, commands)
-            break
-        end
+    local cmd = commands[args[1]]
+    if (cmd) then
+        cmd.run(args, msg, Discord, cmd, commands)
     end
 end
 
@@ -50,7 +47,7 @@ Discord:on('ready', function()
     if (server) then
         for _, file in pairs(settings.commands) do
             local command = require('./Commands/' .. file)
-            commands[#commands + 1] = {
+            commands[command.name] = {
                 server = server,
                 run = command.run,
                 name = command.name,

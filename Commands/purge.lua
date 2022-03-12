@@ -90,6 +90,7 @@ return {
                 messages_found = message:delete()
                 if (say) then
                     say = false
+                    msg:delete()
                     member:send('Deleting messages for <@!' .. user .. '>')
                 end
             end
@@ -98,7 +99,5 @@ return {
         if (not messages_found) then
             member:send('No messages for <@!' .. user .. '> found in that time frame')
         end
-
-        msg:delete()
     end
 }

@@ -64,8 +64,7 @@ Discord:on('ready', function()
                 description = command.description
             }
         end
-        --Discord:info("Ready: " .. Discord.user.tag)
-        Discord:info("Logged in as " .. Discord.user.username .. "\tBot Version: " .. settings.bot_version)
+        Discord:info('Bot Version: ' .. settings.bot_version)
     end
 end)
 

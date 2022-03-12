@@ -1,4 +1,4 @@
--- Purge Bot settings file (v1.0)
+-- Purge Bot Help Command file (v1.0)
 -- Copyright (c) 2022, Jericho Crosby <jericho.crosby227@gmail.com>
 
 --[[
@@ -18,17 +18,32 @@
     along with Purge Bot. If not, see <http://www.gnu.org/licenses/>.
 ]]
 
+
 return {
-    prefix = "!",
-    discord_server_id = '508458848559038465',
-    commands = { 'purge', 'help' },
-    token = function()
-        local token = ''
-        local file = io.open('./Auth.data')
-        if (file) then
-            token = file:read()
-            file:close()
+
+    name = 'help',
+    alias = 'helpme',
+    help = 'Syntax: $cmd',
+    roles = { '508481976714657792' },
+    description = 'Command descriptions',
+
+    permission = function(roles, member)
+        for _, v in pairs(roles) do
+            if (member:hasRole(v)) then
+                return true
+            end
         end
-        return token
+        return false
+    end,
+
+    run = function(_, msg, _, _, commands)
+        local member = msg.member
+        local t = {}
+        for _, v in pairs(commands) do
+            if (type(v) == 'table') then
+                t[#t + 1] = 'Command: ' .. v.command .. '\n' .. 'Description: ' .. v.description .. 'Syntax: ' .. v.help
+            end
+        end
+        member:send(table.unpack(t))
     end
 }

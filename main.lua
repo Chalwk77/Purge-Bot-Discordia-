@@ -31,7 +31,7 @@ local function RunCommand(msg, args)
 
     for _, v in pairs(commands) do
         if (v.name:lower() == args[1] or v.alias:lower() == args[1]) then
-            v.run(args, msg, Discord, v)
+            v.run(args, msg, Discord, v, commands)
             break
         end
     end
@@ -62,6 +62,7 @@ end)
 
 Discord:on('messageCreate', function(msg)
 
+    local member = msg.member
     if (not msg.author or msg.author.id == Discord.user.id or msg.author.bot) then
         return
     end
@@ -79,7 +80,7 @@ Discord:on('messageCreate', function(msg)
 
         if (not success) then
             Discord:warning(err)
-            msg.channel:send('Something went wrong, please try again later')
+            member:send('Something went wrong, please try again later')
         end
     end
 end)

@@ -55,6 +55,7 @@ return {
             member:send('Invalid time frame.')
             return
         end
+        time_frame = tonumber(time_frame)
 
         user = user:gsub('[<@!>]', '')
         flag = (flag:match '-y'
@@ -97,7 +98,7 @@ return {
                 end
             end
         elseif (not messages_found) then
-            member:send('No messages for <@!' .. user .. '> found')
+            member:send('No messages found for <@!' .. user .. '>, or none within the defined time frame.')
         end
     end
 }

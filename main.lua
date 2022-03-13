@@ -25,7 +25,6 @@ local Discord = Discordia.Client()
 local commands = {}
 
 Discord:on('ready', function()
-
     local server = Discord:getGuild(settings.discord_server_id)
     if (server) then
         for _, file in pairs(settings.commands) do
@@ -43,21 +42,7 @@ Discord:on('ready', function()
                 help = command.help:gsub('$prefix', settings.prefix):gsub('$cmd', command.name)
             }
         end
-
-        print("====================================================================================")
-        print(os.date("%A, %d %B %Y - %X"))
-        print("")
-        print("'||''|.  '||'  '|' '||''|.    ..|'''.|  '||''''|     '||''|.    ..|''||   |''||''|")
-        print(" ||   ||  ||    |   ||   ||  .|'     '   ||  .        ||   ||  .|'    ||     ||")
-        print(" ||...|'  ||    |   ||''|'   ||    ....  ||''|        ||'''|.  ||      ||    ||")
-        print(" ||       ||    |   ||   |.  '|.    ||   ||           ||    || '|.     ||    ||")
-        print(".||.       '|..'   .||.  '|'  ''|...'|  .||.....|    .||...|'   ''|...|'    .||.")
-        print("              ->-<->-<->-<->-<->-<->-<->-<->-<->-<->-<->-<->-<->-")
-        print("                                 MODERATION TOOL")
-        print("                                    version " .. settings.bot_version)
-        print("              ->-<->-<->-<->-<->-<->-<->-<->-<->-<->-<->-<->-<->-")
-        print("")
-        print("====================================================================================")
+        Discord:info('READY ' .. ' Bot Version: ' .. settings.bot_version)
     end
 end)
 

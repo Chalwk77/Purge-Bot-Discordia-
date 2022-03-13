@@ -19,10 +19,30 @@
 ]]
 
 return {
-    prefix = ">",
-    bot_version = 1.0,
+
+    -- =================================================--
+    -- CONFIGURATION STARTS ...
+
+    --------------------------------------
+    -- DISCORD SERVER ID --
+    -- Paste your Discord server numerical ID (NOT NAME):
+    -- 1). Right click the Discord server icon and click "Copy ID".
+    -- 2). Replace "xxxxxxxxxxxxxxxxxx" below with the id you copied.
     discord_server_id = '508458848559038465',
+
+    -- To disable a command, remove it from this list:
+    --
     commands = { 'purge', 'kick', 'ban', 'help', 'timeout' },
+
+    -- Command prefix:
+    prefix = ">",
+    --
+    --
+    --
+    --
+    --
+    -- [!] do not touch --
+    bot_version = 1.0,
     token = function()
         local token = ''
         local file = io.open('./Auth.data')

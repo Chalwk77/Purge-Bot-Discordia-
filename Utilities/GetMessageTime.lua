@@ -27,7 +27,8 @@ local pattern = '(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)'
 
 return function(msg)
 
-    local cy, cm, cd, chr, cmin, csec = msg.timestamp:match(pattern)
+    local creation_timestamp = msg.timestamp
+    local cy, cm, cd, chr, cmin, csec = creation_timestamp:match(pattern)
     local creation_reference = time { year = cy, month = cm, day = cd, hour = chr, min = cmin, sec = csec }
 
     local time_now = date(now_pattern, time())

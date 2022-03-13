@@ -73,6 +73,7 @@ Discord:on('messageCreate', function(msg)
 
     local member = msg.member
     local args = CMDSplit(msg.content)
+
     if (not msg.author or msg.author.id == Discord.user.id or msg.author.bot) then
         return
     elseif (#args > 0) then

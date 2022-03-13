@@ -78,20 +78,17 @@ return {
             return
         end
 
-        local channel = Command.client:getChannel(msg.channel.id)
-        local messages = channel:getMessages()
-
         local inform = true
         local messages_found
-        for MessageID, _ in pairs(messages) do
-            local message = channel:getMessage(MessageID)
-            local validated = (message.author.id == user and not message.author.bot)
-            if (validated and get_creation_time(message) <= time_frame) then
-                messages_found = message:delete()
+        local messages = msg.channel:getMessages()
+        for _, Message in pairs(messages) do
+            local validated = (Message.author.id == user and not Message.author.bot)
+            if (validated and get_creation_time(Message) <= time_frame) then
+                messages_found = Message:delete()
                 if (inform) then
                     inform = false
                     msg:delete() -- delete admin command
-                    member:send('Deleting messages for ' .. message.author.username)
+                    member:send('Deleting messages for ' .. Message.author.username)
                 end
             end
         end

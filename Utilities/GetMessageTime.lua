@@ -22,13 +22,13 @@ local time = os.time
 local diff = os.difftime
 local pattern = '(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)'
 
-return function(creation_timestamp, current_timestamp)
+return function(current_timestamp, creation_timestamp)
 
-    local y, m, d, hr, min, sec = creation_timestamp:match(pattern)
-    local creation_reference = time { year = y, month = m, day = d, hour = hr, min = min, sec = sec }
-
-    y, m, d, hr, min, sec = current_timestamp:match(pattern)
+    local y, m, d, hr, min, sec = current_timestamp:match(pattern)
     local now_reference = time { year = y, month = m, day = d, hour = hr, min = min, sec = sec }
+
+    y, m, d, hr, min, sec = creation_timestamp:match(pattern)
+    local creation_reference = time { year = y, month = m, day = d, hour = hr, min = min, sec = sec }
 
     return diff(now_reference, creation_reference)
 end

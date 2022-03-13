@@ -81,13 +81,13 @@ return {
 
         local inform = true
         local messages_found
+        local current_timestamp = msg.timestamp
         local messages = msg.channel:getMessages()
         if (messages) then
             for _, Message in pairs(messages) do
 
-                local validated = (Message.author.id == user and not Message.author.bot)
-                local current_timestamp = msg.timestamp
                 local creation_timestamp = Message.timestamp
+                local validated = (Message.author.id == user and not Message.author.bot)
 
                 if (validated and get_creation_time(current_timestamp, creation_timestamp) <= time_frame) then
                     messages_found = Message:delete()
@@ -99,6 +99,8 @@ return {
             end
         elseif (not messages_found) then
             member:send('No messages found for <@!' .. user .. '>, or none within the defined time frame.')
+        else
+            member:send('Something went wrong! Please try again later.')
         end
     end
 }

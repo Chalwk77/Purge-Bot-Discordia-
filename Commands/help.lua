@@ -18,7 +18,6 @@
     along with Purge Bot. If not, see <http://www.gnu.org/licenses/>.
 ]]
 
-
 return {
 
     name = 'purgehelp',

@@ -64,13 +64,13 @@ return {
                 or flag:match '-sec')
 
         if (flag == '-y') then
-            time_frame = floor(time_frame / (60 * 60 * 24 * 365))
+            time_frame = floor(time_frame * (60 * 60 * 24 * 365)) --3.156e+7
         elseif (flag == '-d') then
-            time_frame = floor(time_frame / (60 * 60 * 24))
+            time_frame = floor(time_frame * (60 * 60 * 24)) -- 86,400
         elseif (flag == '-hr') then
-            time_frame = floor(time_frame / (60 * 60))
+            time_frame = floor(time_frame * (60 * 60)) -- 3600
         elseif (flag == '-min') then
-            time_frame = floor(time_frame / 60)
+            time_frame = floor(time_frame * 60) -- 60
         elseif (flag == '-sec') then
             time_frame = time_frame
         else
@@ -81,17 +81,17 @@ return {
         local channel = Command.client:getChannel(msg.channel.id)
         local messages = channel:getMessages()
 
-        local say = true
+        local inform = true
         local messages_found
         for MessageID, _ in pairs(messages) do
             local message = channel:getMessage(MessageID)
             local validated = (message.author.id == user and not message.author.bot)
             if (validated and get_creation_time(message) <= time_frame) then
                 messages_found = message:delete()
-                if (say) then
-                    say = false
-                    msg:delete()
-                    member:send('Deleting messages for <@!' .. user .. '>')
+                if (inform) then
+                    inform = false
+                    msg:delete() -- delete admin command
+                    member:send('Deleting messages for ' .. message.author.username)
                 end
             end
         end

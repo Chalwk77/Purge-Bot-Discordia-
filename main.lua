@@ -24,15 +24,8 @@ local Discord = Discordia.Client()
 
 local commands = {}
 
-local function CMDSplit(Str)
-    local args = { }
-    for arg in Str:gmatch("([^%s]+)") do
-        args[#args + 1] = arg:lower()
-    end
-    return args
-end
-
 Discord:on('ready', function()
+
     local server = Discord:getGuild(settings.discord_server_id)
     if (server) then
         for _, file in pairs(settings.commands) do
@@ -67,15 +60,21 @@ Discord:on('ready', function()
     end
 end)
 
+local function CMDSplit(Str)
+    local args = { }
+    for arg in Str:gmatch("([^%s]+)") do
+        args[#args + 1] = arg:lower()
+    end
+    return args
+end
+
 Discord:on('messageCreate', function(msg)
 
     local member = msg.member
+    local args = CMDSplit(msg.content)
     if (not msg.author or msg.author.id == Discord.user.id or msg.author.bot) then
         return
-    end
-
-    local args = CMDSplit(msg.content)
-    if (#args > 0) then
+    elseif (#args > 0) then
 
         if (args[1]:sub(1, 1) ~= settings.prefix) then
             return false

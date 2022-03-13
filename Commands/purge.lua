@@ -64,15 +64,15 @@ return {
                 or flag:match '-sec')
 
         if (flag == '-y') then
-            time_frame = floor(time_frame * (60 * 60 * 24 * 365)) --3.156e+7
+            time_frame = time_frame * (60 * 60 * 24 * 365) --years
         elseif (flag == '-d') then
-            time_frame = floor(time_frame * (60 * 60 * 24)) -- 86,400
+            time_frame = time_frame * (60 * 60 * 24) -- days
         elseif (flag == '-hr') then
-            time_frame = floor(time_frame * (60 * 60)) -- 3600
+            time_frame = time_frame * (60 * 60) -- hours
         elseif (flag == '-min') then
-            time_frame = floor(time_frame * 60) -- 60
+            time_frame = time_frame * 60 -- minutes
         elseif (flag == '-sec') then
-            time_frame = time_frame
+            time_frame = time_frame -- seconds
         else
             member:send('Invalid flag.\n' .. Command.help)
             return

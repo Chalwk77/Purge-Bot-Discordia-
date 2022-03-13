@@ -83,7 +83,7 @@ return {
         local messages = msg.channel:getMessages()
         for _, Message in pairs(messages) do
             local validated = (Message.author.id == user and not Message.author.bot)
-            if (validated and get_creation_time(Message) <= time_frame) then
+            if (validated and get_creation_time(Message, msg.timestamp) <= time_frame) then
                 messages_found = Message:delete()
                 if (inform) then
                     inform = false

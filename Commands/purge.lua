@@ -81,20 +81,23 @@ return {
         local inform = true
         local messages_found
         local messages = msg.channel:getMessages()
-        for _, Message in pairs(messages) do
-            local validated = (Message.author.id == user and not Message.author.bot)
-            if (validated and get_creation_time(Message, msg.timestamp) <= time_frame) then
-                messages_found = Message:delete()
-                if (inform) then
-                    inform = false
-                    msg:delete() -- delete admin command
-                    member:send('Deleting messages for ' .. Message.author.username)
+        if (messages) then
+            for _, Message in pairs(messages) do
+
+                local validated = (Message.author.id == user and not Message.author.bot)
+                local current_timestamp = msg.timestamp
+                local creation_timestamp = Message.timestamp
+
+                if (validated and get_creation_time(current_timestamp, creation_timestamp) <= time_frame) then
+                    messages_found = Message:delete()
+                    if (inform) then
+                        inform = false
+                        member:send('Deleting messages for ' .. Message.author.username)
+                    end
                 end
             end
-        end
-
-        if (not messages_found) then
-            member:send('No messages for <@!' .. user .. '> found in that time frame')
+        elseif (not messages_found) then
+            member:send('No messages for <@!' .. user .. '> found')
         end
     end
 }

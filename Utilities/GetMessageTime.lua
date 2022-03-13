@@ -22,12 +22,12 @@ local time = os.time
 local diff = os.difftime
 local pattern = '(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)'
 
-return function(msg, current_time)
+return function(creation_timestamp, current_timestamp)
 
-    local cy, cm, cd, chr, cmin, csec = msg.timestamp:match(pattern)
-    local creation_reference = time { year = cy, month = cm, day = cd, hour = chr, min = cmin, sec = csec }
+    local y, m, d, hr, min, sec = creation_timestamp:match(pattern)
+    local creation_reference = time { year = y, month = m, day = d, hour = hr, min = min, sec = sec }
 
-    local y, m, d, hr, min, sec = current_time:match(pattern)
+    y, m, d, hr, min, sec = current_timestamp:match(pattern)
     local now_reference = time { year = y, month = m, day = d, hour = hr, min = min, sec = sec }
 
     return diff(now_reference, creation_reference)

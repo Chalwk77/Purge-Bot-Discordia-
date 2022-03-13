@@ -18,22 +18,22 @@
     along with Purge Bot. If not, see <http://www.gnu.org/licenses/>.
 ]]
 
-local floor = math.floor
 local get_creation_time = require('Utilities.GetMessageTime')
 
 return {
 
     name = 'purge',
+    permission_node = 'administrator',
     description = 'Purge user messages in defined time frame',
     help = 'Syntax: $prefix$cmd (user) (time n) [-y, -d, -hr, -min, -sec]',
 
-    permission = function(member, msg)
-        if (not member:hasPermission('manageMembers')) then
+    permission = function(member, msg, perm)
+        if (not member:hasPermission(perm)) then
             msg:delete()
             member:send {
                 embed = {
                     title = 'Perms Error',
-                    description = 'You need "manageMembers" perm to use this command.',
+                    description = 'You need "' .. perm .. '" perm to use this command.',
                     color = 0x000000
                 }
             }
@@ -46,7 +46,7 @@ return {
 
         local member = msg.member
         local user, time_frame, flag = args[2], args[3], args[4]
-        if (not Command.permission(member, msg)) then
+        if (not Command.permission(member, msg, Command.permission_node)) then
             return
         elseif (not user or not time_frame or not flag) then
             member:send('Invalid user, time frame or flag.\n' .. Command.help)

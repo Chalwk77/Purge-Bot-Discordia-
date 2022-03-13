@@ -39,6 +39,7 @@ Discord:on('ready', function()
                 duration = command.duration,
                 permission = command.permission,
                 description = command.description,
+                permission_node = command.permission_node,
                 help = command.help:gsub('$prefix', settings.prefix):gsub('$cmd', command.name)
             }
         end

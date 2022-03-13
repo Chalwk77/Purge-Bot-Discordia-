@@ -23,16 +23,17 @@ return {
     duration = 60,
     name = 'timeout',
     reason = 'Undefined',
+    permission_node = 'administrator',
     help = 'Syntax: $prefix$cmd (user) (duration) (reason [optional])',
     description = 'Timeout a user',
 
-    permission = function(member, msg)
-        if (not member:hasPermission('moderateMembers')) then
+    permission = function(member, msg, perm)
+        if (not member:hasPermission(perm)) then
             msg:delete()
             member:send {
                 embed = {
                     title = 'Perms Error',
-                    description = 'You need "moderateMembers" perm to use this command.',
+                    description = 'You need "' .. perm .. '" perm to use this command.',
                     color = 0x000000
                 }
             }
@@ -48,7 +49,7 @@ return {
         local duration = args[3] or Command.duration
         local reason = args[4] or Command.reason
 
-        if (not Command.permission(member, msg)) then
+        if (not Command.permission(member, msg, Command.permission_node)) then
             return
         elseif (not user or not reason or not duration) then
             member:send('Invalid user, reason or duration.\n' .. Command.help)

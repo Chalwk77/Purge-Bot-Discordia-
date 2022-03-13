@@ -21,16 +21,17 @@
 return {
 
     name = 'purgehelp',
+    permission_node = 'administrator',
     description = 'Show command descriptions',
     help = 'Syntax: $prefix$cmd',
 
-    permission = function(member, msg)
-        if (not member:hasPermission('manageMembers')) then
+    permission = function(member, msg, perm)
+        if (not member:hasPermission(perm)) then
             msg:delete()
             member:send {
                 embed = {
                     title = 'Perms Error',
-                    description = 'You need "manageMembers" perm to use this command.',
+                    description = 'You need "' .. perm .. '" perm to use this command.',
                     color = 0x000000
                 }
             }
@@ -41,7 +42,7 @@ return {
 
     run = function(_, msg, Command, Commands)
         local member = msg.member
-        if (not Command.permission(member, msg)) then
+        if (not Command.permission(member, msg, Command.permission_node)) then
             return
         end
         local help = ""

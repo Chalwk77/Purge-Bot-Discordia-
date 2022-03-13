@@ -22,16 +22,17 @@ return {
 
     name = 'ban',
     reason = 'Undefined',
+    permission_node = 'administrator',
     description = 'Ban a user',
     help = 'Syntax: $prefix$cmd (user) (reason [optional])',
 
-    permission = function(member, msg)
-        if (not member:hasPermission('banMembers')) then
+    permission = function(member, msg, perm)
+        if (not member:hasPermission(perm)) then
             msg:delete()
             member:send {
                 embed = {
                     title = 'Perms Error',
-                    description = 'You need "banMembers" perm to use this command.',
+                    description = 'You need "' .. perm .. '" perm to use this command.',
                     color = 0x000000
                 }
             }
@@ -46,7 +47,7 @@ return {
         local member = msg.member
         local reason = args[3] or Command.reason
 
-        if (not Command.permission(member, msg)) then
+        if (not Command.permission(member, msg, Command.permission_node)) then
             return
         elseif (not user or not reason) then
             member:send('Invalid user or reason.\n' .. Command.help)

@@ -22,27 +22,36 @@ local settings = require('settings')
 local Discordia = require('discordia')
 local Discord = Discordia.Client()
 
-local commands = {}
+_G.commands = {}
+_G.HasPermission = function(member, msg, node)
+    if (not member:hasPermission(node)) then
+        msg:delete()
+        member:send {
+            embed = {
+                title = 'Perms Error',
+                description = 'You need "' .. node .. '" perm to use this command.',
+                color = 0x000000
+            }
+        }
+        return false
+    end
+    return true
+end
 
 Discord:on('ready', function()
     local server = Discord:getGuild(settings.discord_server_id)
     if (server) then
+
+        local mt = { __index = Discord, server = server }
+
+        Discord:info('READY ' .. ' Bot Version: ' .. settings.bot_version)
         for _, file in pairs(settings.commands) do
             local command = require('./Commands/' .. file)
-            commands[command.name] = {
-                server = server,
-                client = Discord,
-                run = command.run,
-                name = command.name,
-                reason = command.reason,
-                duration = command.duration,
-                permission = command.permission,
-                description = command.description,
-                permission_node = command.permission_node,
-                help = command.help:gsub('$prefix', settings.prefix):gsub('$cmd', command.name)
-            }
+
+            commands[command.name] = command
+            commands[command.name].help = command.help:gsub('$prefix', settings.prefix):gsub('$cmd', command.name)
+            setmetatable(commands[command.name], mt)
         end
-        Discord:info('READY ' .. ' Bot Version: ' .. settings.bot_version)
     end
 end)
 
@@ -71,7 +80,7 @@ Discord:on('messageCreate', function(msg)
             args[1] = args[1]:gsub(settings.prefix, '')
             local cmd = commands[args[1]]
             if (cmd) then
-                cmd.run(args, msg, cmd, commands)
+                cmd:Run(args, msg)
             end
         end)
 

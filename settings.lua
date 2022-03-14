@@ -32,10 +32,10 @@ return {
 
     -- To disable a command, remove it from this list:
     --
-    commands = { 'purge', 'kick', 'ban', 'help', 'timeout' },
+    commands = { 'purge', 'kick', 'ban', 'timeout', 'help' },
 
     -- Command prefix:
-    prefix = ">",
+    prefix = "/",
     --
     --
     --

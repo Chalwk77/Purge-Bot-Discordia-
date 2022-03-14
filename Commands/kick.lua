@@ -18,53 +18,37 @@
     along with Purge Bot. If not, see <http://www.gnu.org/licenses/>.
 ]]
 
-return {
-
+local Command = {
     name = 'kick',
     reason = 'Undefined',
     permission_node = 'administrator',
     help = 'Syntax: $prefix$cmd (user) (reason [optional])',
-    description = 'Kick a user',
-
-    permission = function(member, msg, perm)
-        if (not member:hasPermission(perm)) then
-            msg:delete()
-            member:send {
-                embed = {
-                    title = 'Perms Error',
-                    description = 'You need "' .. perm .. '" perm to use this command.',
-                    color = 0x000000
-                }
-            }
-            return false
-        end
-        return true
-    end,
-
-    run = function(args, msg, Command)
-
-        local user = args[2]
-        local member = msg.member
-        local reason = args[3] or Command.reason
-
-        if (not Command.permission(member, msg, Command.permission_node)) then
-            return
-        elseif (not user or not reason) then
-            member:send('Invalid user or reason.\n' .. Command.help)
-            return
-        end
-
-        local success = pcall(function()
-            user = user:gsub('[<@!>]', '')
-            user = Command.server:getMember(user)
-        end)
-
-        if (success and user) then
-            member:send('Kicking <@!' .. user.id .. '>, for ' .. reason)
-            user:send('You were kicked for ' .. reason)
-            user:kick()
-            return
-        end
-        member:send('Invalid User ID')
-    end
+    description = 'Kick a user'
 }
+
+function Command:Run(args, msg)
+
+    local user = args[2]
+    local member = msg.member
+    local reason = args[3] or self.reason
+
+    if (not HasPermission(member, msg, self.permission_node)) then
+        return
+    elseif (not user or not reason) then
+        member:send('Invalid user or reason.\n' .. self.help)
+        return
+    end
+
+    local success = pcall(function(self)
+        user = user:gsub('[<@!>]', '')
+        user = self.server:getMember(user)
+    end)
+
+    if (success and user) then
+        member:send('Kicking <@!' .. user.id .. '>, for ' .. reason)
+        user:send('You were kicked for ' .. reason)
+        user:kick()
+        return
+    end
+    member:send('Invalid User ID')
+end

@@ -18,58 +18,42 @@
     along with Purge Bot. If not, see <http://www.gnu.org/licenses/>.
 ]]
 
-return {
-
+local Command = {
     duration = 60,
     name = 'timeout',
     reason = 'Undefined',
     permission_node = 'administrator',
     help = 'Syntax: $prefix$cmd (user) (duration) (reason [optional])',
-    description = 'Timeout a user',
-
-    permission = function(member, msg, perm)
-        if (not member:hasPermission(perm)) then
-            msg:delete()
-            member:send {
-                embed = {
-                    title = 'Perms Error',
-                    description = 'You need "' .. perm .. '" perm to use this command.',
-                    color = 0x000000
-                }
-            }
-            return false
-        end
-        return true
-    end,
-
-    run = function(args, msg, Command)
-
-        local user = args[2]
-        local member = msg.member
-        local duration = args[3] or Command.duration
-        local reason = args[4] or Command.reason
-
-        if (not Command.permission(member, msg, Command.permission_node)) then
-            return
-        elseif (not user or not reason or not duration) then
-            member:send('Invalid user, reason or duration.\n' .. Command.help)
-            return
-        elseif (not duration:match('%d+')) then
-            member:send('Invalid duration.\n' .. Command.help)
-            return
-        end
-
-        local success = pcall(function()
-            user = user:gsub('[<@!>]', '')
-            user = Command.server:getMember(user)
-        end)
-
-        if (success and user) then
-            member:send('Timing out <@!' .. user.id .. '>, for ' .. reason)
-            user:send('You were timed out for ' .. reason)
-            user:timeoutFor(duration * 60)
-            return
-        end
-        member:send('Invalid User ID')
-    end
+    description = 'Timeout a user'
 }
+
+function Command:Run(args, msg)
+
+    local user = args[2]
+    local member = msg.member
+    local duration = args[3] or self.duration
+    local reason = args[4] or self.reason
+
+    if (not HasPermission(member, msg, self.permission_node)) then
+        return
+    elseif (not user or not reason or not duration) then
+        member:send('Invalid user, reason or duration.\n' .. self.help)
+        return
+    elseif (not duration:match('%d+')) then
+        member:send('Invalid duration.\n' .. self.help)
+        return
+    end
+
+    local success = pcall(function(self)
+        user = user:gsub('[<@!>]', '')
+        user = self.server:getMember(user)
+    end)
+
+    if (success and user) then
+        member:send('Timing out <@!' .. user.id .. '>, for ' .. reason)
+        user:send('You were timed out for ' .. reason)
+        user:timeoutFor(duration * 60)
+        return
+    end
+    member:send('Invalid User ID')
+end

@@ -18,39 +18,25 @@
     along with Purge Bot. If not, see <http://www.gnu.org/licenses/>.
 ]]
 
-return {
-
+local Command = {
     name = 'purgehelp',
-    permission_node = 'administrator',
-    description = 'Show command descriptions',
     help = 'Syntax: $prefix$cmd',
-
-    permission = function(member, msg, perm)
-        if (not member:hasPermission(perm)) then
-            msg:delete()
-            member:send {
-                embed = {
-                    title = 'Perms Error',
-                    description = 'You need "' .. perm .. '" perm to use this command.',
-                    color = 0x000000
-                }
-            }
-            return false
-        end
-        return true
-    end,
-
-    run = function(_, msg, Command, Commands)
-        local member = msg.member
-        if (not Command.permission(member, msg, Command.permission_node)) then
-            return
-        end
-        local help = ""
-        for _, v in pairs(Commands) do
-            help = help .. 'Command: ' .. v.name ..
-                    '\nDescription: ' .. v.description ..
-                    '\n' .. v.help .. '\n\n'
-        end
-        msg.member:send(help)
-    end
+    permission_node = 'administrator',
+    description = 'Show command descriptions'
 }
+
+function Command:Run(_, msg)
+
+    local member = msg.member
+    if (not HasPermission(member, msg, self.permission_node)) then
+        return
+    end
+
+    local help = ""
+    for _, v in pairs(commands) do
+        help = help .. 'Command: ' .. v.name .. '\nDescription: ' .. v.description .. '\n' .. v.help .. '\n\n'
+    end
+    msg.member:send(help)
+end
+
+return HelpCmd

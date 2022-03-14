@@ -24,7 +24,7 @@ local Command = {
     name = 'purge',
     permission_node = 'administrator',
     description = 'Purge user messages in defined time frame',
-    help = 'Syntax: $prefix$cmd (user) (time n) [-y, -wk -d, -hr, -min, -sec]'
+    help = 'Syntax: $prefix$cmd (user) (time n) [-y, -wk, -d, -hr, -min, -sec]'
 }
 
 function Command:Run(args, msg)

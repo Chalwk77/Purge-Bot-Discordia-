@@ -70,6 +70,7 @@ function Command:Run(args, msg)
 
         user = user:gsub('[<@!>]', '')
         flag = (flag:match '-y'
+                or flag:match '-mo'
                 or flag:match '-wk'
                 or flag:match '-d'
                 or flag:match '-hr'

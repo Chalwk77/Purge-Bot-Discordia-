@@ -7,7 +7,7 @@
 
 Command | Description
 ------------ | ------------
-**!purge (user) (time n) [-y, -d, -hr, -min, -sec]** | Purge messages within defined time frame.<br/>Required Permission: **administrator**
+**!purge (user) (time n) [-y, -wk, -d, -hr, -min, -sec]** | Purge messages within defined time frame.<br/>Required Permission: **administrator**
 **!timeout (user) (duration) (reason [optional])** | Timeout a user.<br/>Required Permission: **administrator**
 **!kick (user) (reason [optional])** | Kick a user.<br/>Required Permission: **administrator**
 **!ban (user) (reason [optional])** | Ban a user.<br/>Required Permission: **administrator**

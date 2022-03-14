@@ -53,3 +53,5 @@ function Command:Run(args, msg)
         member:send('Invalid User ID (or something went wrong)')
     end
 end
+
+return Command

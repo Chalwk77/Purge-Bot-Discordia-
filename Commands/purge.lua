@@ -90,3 +90,5 @@ function Command:Run(args, msg)
         end
     end
 end
+
+return Command

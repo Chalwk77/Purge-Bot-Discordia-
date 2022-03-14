@@ -47,7 +47,6 @@ Discord:on('ready', function()
         Discord:info('READY ' .. ' Bot Version: ' .. settings.bot_version)
         for _, file in pairs(settings.commands) do
             local command = require('./Commands/' .. file)
-
             commands[command.name] = command
             commands[command.name].help = command.help:gsub('$prefix', settings.prefix):gsub('$cmd', command.name)
             setmetatable(commands[command.name], mt)

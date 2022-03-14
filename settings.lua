@@ -35,7 +35,7 @@ return {
     commands = { 'purge', 'kick', 'ban', 'timeout', 'help' },
 
     -- Command prefix:
-    prefix = "/",
+    prefix = ">",
     --
     --
     --

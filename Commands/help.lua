@@ -36,4 +36,4 @@ function Command:Run(_, msg)
     end
 end
 
-return HelpCmd
+return Command

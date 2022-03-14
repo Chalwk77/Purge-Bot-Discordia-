@@ -78,10 +78,10 @@ function Command:Run(args, msg)
 
         if (flag == '-y') then
             time_frame = time_frame * (60 * 60 * 24 * 365) -- years
-        elseif (flag == '-wk') then
-            time_frame = time_frame * (60 * 60 * 24 * 7) -- weeks
         elseif (flag == '-mo') then
             time_frame = time_frame * (60 * 60 * 24 * GetDays()) -- months
+        elseif (flag == '-wk') then
+            time_frame = time_frame * (60 * 60 * 24 * 7) -- weeks
         elseif (flag == '-d') then
             time_frame = time_frame * (60 * 60 * 24) -- days
         elseif (flag == '-hr') then

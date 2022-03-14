@@ -21,8 +21,8 @@
 local Command = {
     name = 'ban',
     reason = 'Undefined',
-    permission_node = 'administrator',
     description = 'Ban a user',
+    permission_node = 'administrator',
     help = 'Syntax: $prefix$cmd (user) (reason [optional])'
 }
 
@@ -32,23 +32,24 @@ function Command:Run(args, msg)
     local member = msg.member
     local reason = args[3] or self.reason
 
-    if (not HasPermission(member, msg, self.permission_node)) then
-        return
-    elseif (not user or not reason) then
-        member:send('Invalid user or reason.\n' .. self.help)
-        return
-    end
+    if (HasPermission(member, msg, self.permission_node)) then
 
-    local success = pcall(function(self)
-        user = user:gsub('[<@!>]', '')
-        user = self.server:getMember(user)
-    end)
+        if (not user or not reason) then
+            member:send('Invalid user or reason.\n' .. self.help)
+            return
+        end
 
-    if (success and user) then
-        member:send('Banning <@!' .. user.id .. '>, for ' .. reason)
-        user:send('You were banned for ' .. reason)
-        user:ban()
-        return
+        local success = pcall(function(self)
+            user = user:gsub('[<@!>]', '')
+            user = self.server:getMember(user)
+        end)
+
+        if (success and user) then
+            member:send('Banning <@!' .. user.id .. '>, for ' .. reason)
+            user:send('You were banned for ' .. reason)
+            user:ban()
+            return
+        end
+        member:send('Invalid User ID (or something went wrong)')
     end
-    member:send('Invalid User ID')
 end

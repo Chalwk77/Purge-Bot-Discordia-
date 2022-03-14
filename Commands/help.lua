@@ -26,17 +26,14 @@ local Command = {
 }
 
 function Command:Run(_, msg)
-
     local member = msg.member
-    if (not HasPermission(member, msg, self.permission_node)) then
-        return
+    if (HasPermission(member, msg, self.permission_node)) then
+        local help = ""
+        for _, v in pairs(commands) do
+            help = help .. 'Command: ' .. v.name .. '\nDescription: ' .. v.description .. '\n' .. v.help .. '\n\n'
+        end
+        msg.member:send(help)
     end
-
-    local help = ""
-    for _, v in pairs(commands) do
-        help = help .. 'Command: ' .. v.name .. '\nDescription: ' .. v.description .. '\n' .. v.help .. '\n\n'
-    end
-    msg.member:send(help)
 end
 
 return HelpCmd

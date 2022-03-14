@@ -70,20 +70,13 @@ Discord:on('messageCreate', function(msg)
 
     if (not msg.author or msg.author.id == Discord.user.id or msg.author.bot) then
         return
-    elseif (#args > 0) then
-
-        if (args[1]:sub(1, 1) ~= settings.prefix) then
-            return false
-        end
-
+    elseif (#args > 0 and args[1]:sub(1, 1) == settings.prefix) then
         local success, err = pcall(function()
             args[1] = args[1]:gsub(settings.prefix, '')
-            local cmd = commands[args[1]]
-            if (cmd) then
-                cmd:Run(args, msg)
+            if (commands[args[1]]) then
+                commands[args[1]]:Run(args, msg)
             end
         end)
-
         if (not success) then
             Discord:warning(err)
             member:send('Something went wrong, please try again later')

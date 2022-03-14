@@ -22,9 +22,9 @@ local Command = {
     duration = 60,
     name = 'timeout',
     reason = 'Undefined',
+    description = 'Timeout a user',
     permission_node = 'administrator',
-    help = 'Syntax: $prefix$cmd (user) (duration) (reason [optional])',
-    description = 'Timeout a user'
+    help = 'Syntax: $prefix$cmd (user) (duration) (reason [optional])'
 }
 
 function Command:Run(args, msg)
@@ -34,26 +34,27 @@ function Command:Run(args, msg)
     local duration = args[3] or self.duration
     local reason = args[4] or self.reason
 
-    if (not HasPermission(member, msg, self.permission_node)) then
-        return
-    elseif (not user or not reason or not duration) then
-        member:send('Invalid user, reason or duration.\n' .. self.help)
-        return
-    elseif (not duration:match('%d+')) then
-        member:send('Invalid duration.\n' .. self.help)
-        return
-    end
+    if (HasPermission(member, msg, self.permission_node)) then
 
-    local success = pcall(function(self)
-        user = user:gsub('[<@!>]', '')
-        user = self.server:getMember(user)
-    end)
+        if (not user or not reason or not duration) then
+            member:send('Invalid user, reason or duration.\n' .. self.help)
+            return
+        elseif (not duration:match('%d+')) then
+            member:send('Invalid duration.\n' .. self.help)
+            return
+        end
 
-    if (success and user) then
-        member:send('Timing out <@!' .. user.id .. '>, for ' .. reason)
-        user:send('You were timed out for ' .. reason)
-        user:timeoutFor(duration * 60)
-        return
+        local success = pcall(function(self)
+            user = user:gsub('[<@!>]', '')
+            user = self.server:getMember(user)
+        end)
+
+        if (success and user) then
+            member:send('Timing out <@!' .. user.id .. '>, for ' .. reason)
+            user:send('You were timed out for ' .. reason)
+            user:timeoutFor(duration * 60)
+            return
+        end
+        member:send('Invalid User ID (or something went wrong)')
     end
-    member:send('Invalid User ID')
 end

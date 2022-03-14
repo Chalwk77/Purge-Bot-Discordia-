@@ -30,63 +30,63 @@ local Command = {
 function Command:Run(args, msg)
 
     local member = msg.member
-    local user, time_frame, flag = args[2], args[3], args[4]
+    if (HasPermission(member, msg, self.permission_node)) then
 
-    if (not HasPermission(member, msg, self.permission_node)) then
-        return
-    elseif (not user or not time_frame or not flag) then
-        member:send('Invalid user, time frame or flag.\n' .. self.help)
-        return
-    elseif (not time_frame:match('%d+')) then
-        member:send('Invalid time frame.')
-        return
-    end
-    time_frame = tonumber(time_frame)
+        local user, time_frame, flag = args[2], args[3], args[4]
+        if (not user or not time_frame or not flag) then
+            member:send('Invalid user, time frame or flag.\n' .. self.help)
+            return
+        elseif (not time_frame:match('%d+')) then
+            member:send('Invalid time frame.')
+            return
+        end
+        time_frame = tonumber(time_frame)
 
-    user = user:gsub('[<@!>]', '')
-    flag = (flag:match '-y'
-            or flag:match '-d'
-            or flag:match '-hr'
-            or flag:match '-min'
-            or flag:match '-sec')
+        user = user:gsub('[<@!>]', '')
+        flag = (flag:match '-y'
+                or flag:match '-d'
+                or flag:match '-hr'
+                or flag:match '-min'
+                or flag:match '-sec')
 
-    if (flag == '-y') then
-        time_frame = time_frame * (60 * 60 * 24 * 365) --years
-    elseif (flag == '-d') then
-        time_frame = time_frame * (60 * 60 * 24) -- days
-    elseif (flag == '-hr') then
-        time_frame = time_frame * (60 * 60) -- hours
-    elseif (flag == '-min') then
-        time_frame = time_frame * 60 -- minutes
-    elseif (flag == '-sec') then
-        time_frame = time_frame -- seconds
-    else
-        member:send('Invalid flag.\n' .. self.help)
-        return
-    end
+        if (flag == '-y') then
+            time_frame = time_frame * (60 * 60 * 24 * 365) --years
+        elseif (flag == '-d') then
+            time_frame = time_frame * (60 * 60 * 24) -- days
+        elseif (flag == '-hr') then
+            time_frame = time_frame * (60 * 60) -- hours
+        elseif (flag == '-min') then
+            time_frame = time_frame * 60 -- minutes
+        elseif (flag == '-sec') then
+            time_frame = time_frame -- seconds
+        else
+            member:send('Invalid flag.\n' .. self.help)
+            return
+        end
 
-    local inform = true
-    local messages_found
-    local current_timestamp = msg.timestamp
-    local messages = msg.channel:getMessages()
-    if (messages) then
-        for _, Message in pairs(messages) do
+        local inform = true
+        local messages_found
+        local current_timestamp = msg.timestamp
+        local messages = msg.channel:getMessages()
+        if (messages) then
+            for _, Message in pairs(messages) do
 
-            local author = Message.author
-            local creation_timestamp = Message.timestamp
-            local validated = (author.id == user and not author.bot)
+                local author = Message.author
+                local creation_timestamp = Message.timestamp
+                local validated = (author.id == user and not author.bot)
 
-            if (validated and get_creation_time(current_timestamp, creation_timestamp) <= time_frame) then
-                messages_found = Message:delete()
-                if (inform) then
-                    inform = false
-                    member:send('Deleting messages for ' .. author.username)
+                if (validated and get_creation_time(current_timestamp, creation_timestamp) <= time_frame) then
+                    messages_found = Message:delete()
+                    if (inform) then
+                        inform = false
+                        member:send('Deleting messages for ' .. author.username)
+                    end
                 end
             end
+        elseif (not messages_found) then
+            member:send('No messages found for <@!' .. user .. '>, or none within the defined time frame.')
+        else
+            member:send('Something went wrong! Please try again later.')
         end
-    elseif (not messages_found) then
-        member:send('No messages found for <@!' .. user .. '>, or none within the defined time frame.')
-    else
-        member:send('Something went wrong! Please try again later.')
     end
 end

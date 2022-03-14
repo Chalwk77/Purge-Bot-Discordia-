@@ -21,9 +21,9 @@
 local Command = {
     name = 'kick',
     reason = 'Undefined',
+    description = 'Kick a user',
     permission_node = 'administrator',
-    help = 'Syntax: $prefix$cmd (user) (reason [optional])',
-    description = 'Kick a user'
+    help = 'Syntax: $prefix$cmd (user) (reason [optional])'
 }
 
 function Command:Run(args, msg)
@@ -32,23 +32,24 @@ function Command:Run(args, msg)
     local member = msg.member
     local reason = args[3] or self.reason
 
-    if (not HasPermission(member, msg, self.permission_node)) then
-        return
-    elseif (not user or not reason) then
-        member:send('Invalid user or reason.\n' .. self.help)
-        return
-    end
+    if (HasPermission(member, msg, self.permission_node)) then
 
-    local success = pcall(function(self)
-        user = user:gsub('[<@!>]', '')
-        user = self.server:getMember(user)
-    end)
+        if (not user or not reason) then
+            member:send('Invalid user or reason.\n' .. self.help)
+            return
+        end
 
-    if (success and user) then
-        member:send('Kicking <@!' .. user.id .. '>, for ' .. reason)
-        user:send('You were kicked for ' .. reason)
-        user:kick()
-        return
+        local success = pcall(function(self)
+            user = user:gsub('[<@!>]', '')
+            user = self.server:getMember(user)
+        end)
+
+        if (success and user) then
+            member:send('Kicking <@!' .. user.id .. '>, for ' .. reason)
+            user:send('You were kicked for ' .. reason)
+            user:kick()
+            return
+        end
+        member:send('Invalid User ID (or something went wrong)')
     end
-    member:send('Invalid User ID')
 end

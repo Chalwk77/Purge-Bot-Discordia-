@@ -24,8 +24,34 @@ local Command = {
     name = 'purge',
     permission_node = 'administrator',
     description = 'Purge user messages in defined time frame',
-    help = 'Syntax: $prefix$cmd (user) (time n) [-y, -wk, -d, -hr, -min, -sec]'
+    help = 'Syntax: $prefix$cmd (user) (time n) [-y, -mo, -wk, -d, -hr, -min, -sec]'
 }
+
+local months = {
+    [1] = 31,
+    [2] = 28,
+    [3] = 31,
+    [4] = 30,
+    [5] = 31,
+    [6] = 30,
+    [7] = 31,
+    [8] = 31,
+    [9] = 30,
+    [10] = 31,
+    [11] = 30,
+    [12] = 31
+}
+
+local function LeapYear(y)
+    return y % 4 == 0 and (y % 100 ~= 0 or y % 400 == 0)
+end
+
+local date = os.date
+local function GetDays()
+    local y = date('*t').year
+    local mo = date('*t').month
+    return (mo == 2 and LeapYear(y) and 29) or months[mo]
+end
 
 function Command:Run(args, msg)
 
@@ -54,6 +80,8 @@ function Command:Run(args, msg)
             time_frame = time_frame * (60 * 60 * 24 * 365) -- years
         elseif (flag == '-wk') then
             time_frame = time_frame * (60 * 60 * 24 * 7) -- weeks
+        elseif (flag == '-mo') then
+            time_frame = time_frame * (60 * 60 * 24 * GetDays()) -- months
         elseif (flag == '-d') then
             time_frame = time_frame * (60 * 60 * 24) -- days
         elseif (flag == '-hr') then

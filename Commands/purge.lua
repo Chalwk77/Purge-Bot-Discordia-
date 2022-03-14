@@ -24,7 +24,7 @@ local Command = {
     name = 'purge',
     permission_node = 'administrator',
     description = 'Purge user messages in defined time frame',
-    help = 'Syntax: $prefix$cmd (user) (time n) [-y, -d, -hr, -min, -sec]'
+    help = 'Syntax: $prefix$cmd (user) (time n) [-y, -wk -d, -hr, -min, -sec]'
 }
 
 function Command:Run(args, msg)
@@ -44,6 +44,7 @@ function Command:Run(args, msg)
 
         user = user:gsub('[<@!>]', '')
         flag = (flag:match '-y'
+                or flag:match '-wk'
                 or flag:match '-d'
                 or flag:match '-hr'
                 or flag:match '-min'
@@ -51,6 +52,8 @@ function Command:Run(args, msg)
 
         if (flag == '-y') then
             time_frame = time_frame * (60 * 60 * 24 * 365) -- years
+        elseif (flag == '-wk') then
+            time_frame = time_frame * (60 * 60 * 24 * 7) -- weeks
         elseif (flag == '-d') then
             time_frame = time_frame * (60 * 60 * 24) -- days
         elseif (flag == '-hr') then

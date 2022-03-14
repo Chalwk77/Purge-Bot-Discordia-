@@ -50,7 +50,7 @@ function Command:Run(args, msg)
                 or flag:match '-sec')
 
         if (flag == '-y') then
-            time_frame = time_frame * (60 * 60 * 24 * 365) --years
+            time_frame = time_frame * (60 * 60 * 24 * 365) -- years
         elseif (flag == '-d') then
             time_frame = time_frame * (60 * 60 * 24) -- days
         elseif (flag == '-hr') then
